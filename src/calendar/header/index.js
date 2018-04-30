@@ -18,17 +18,18 @@ class CalendarHeader extends Component {
     hideDayNames: PropTypes.bool,
     weekNumbers: PropTypes.bool,
     onPressArrowLeft: PropTypes.func,
-    onPressArrowRight: PropTypes.func
+    onPressArrowRight: PropTypes.func,
+    onPressMonth: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
     this.style = styleConstructor(props.theme);
     this.addMonth = this.addMonth.bind(this);
-    this.pressMonth = this.pressMonth.bind(this);
     this.substractMonth = this.substractMonth.bind(this);
     this.onPressLeft = this.onPressLeft.bind(this);
     this.onPressRight = this.onPressRight.bind(this);
+    this.onPressMonth = this.onPressMonth.bind(this);
   }
 
   addMonth() {
@@ -39,9 +40,13 @@ class CalendarHeader extends Component {
     this.props.addMonth(-1);
   }
 
-  pressMonth(){
-    console.log('yo');
-  }
+  onPressMonth(){
+        const {onPressMonth} = this.props;
+        if(typeof onPressMonth === 'function') {
+            return onPressMonth(this.pressMonth);
+        }
+        return null;
+    }
 
   shouldComponentUpdate(nextProps) {
     if (
@@ -73,14 +78,6 @@ class CalendarHeader extends Component {
       return onPressArrowRight(this.addMonth);
     }
     return this.addMonth();
-  }
-
-  onPressMonth() {
-    const {onPressMonth} = this.props;
-    if(typeof onPressMonth === 'function') {
-      return onPressMonth(this.pressMonth);
-    }
-    return this.pressMonth();
   }
 
   render() {
