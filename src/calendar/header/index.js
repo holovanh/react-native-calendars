@@ -25,6 +25,7 @@ class CalendarHeader extends Component {
     super(props);
     this.style = styleConstructor(props.theme);
     this.addMonth = this.addMonth.bind(this);
+    this.pressMonth = this.pressMonth.bind(this);
     this.substractMonth = this.substractMonth.bind(this);
     this.onPressLeft = this.onPressLeft.bind(this);
     this.onPressRight = this.onPressRight.bind(this);
@@ -36,6 +37,10 @@ class CalendarHeader extends Component {
 
   substractMonth() {
     this.props.addMonth(-1);
+  }
+
+  pressMonth(){
+    console.log('yo');
   }
 
   shouldComponentUpdate(nextProps) {
@@ -68,6 +73,14 @@ class CalendarHeader extends Component {
       return onPressArrowRight(this.addMonth);
     }
     return this.addMonth();
+  }
+
+  onPressMonth() {
+    const {onPressMonth} = this.props;
+    if(typeof onPressMonth === 'function') {
+      return onPressMonth(this.pressMonth);
+    }
+    return this.pressMonth();
   }
 
   render() {
@@ -112,12 +125,12 @@ class CalendarHeader extends Component {
       <View>
         <View style={this.style.header}>
           {leftArrow}
-          <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity onPress={this.onPressMonth} style={{ flexDirection: 'row' }}>
             <Text allowFontScaling={false} style={this.style.monthText} accessibilityTraits='header'>
               {this.props.month.toString(this.props.monthFormat ? this.props.monthFormat : 'MMMM yyyy')}
             </Text>
             {indicator}
-          </View>
+          </TouchableOpacity>
           {rightArrow}
         </View>
         {
