@@ -43,7 +43,7 @@ class CalendarHeader extends Component {
   onPressMonth(){
         const {onPressMonth} = this.props;
         if(typeof onPressMonth === 'function') {
-            return onPressMonth(this.pressMonth);
+            return onPressMonth(this.onPressMonth);
         }
         return null;
     }
