@@ -126,6 +126,7 @@ class CalendarHeader extends Component {
             <Text allowFontScaling={false} style={this.style.monthText} accessibilityTraits='header'>
               {this.props.month.toString(this.props.monthFormat ? this.props.monthFormat : 'MMMM yyyy')}
             </Text>
+            <Text>123</Text>
             {indicator}
           </TouchableOpacity>
           {rightArrow}
